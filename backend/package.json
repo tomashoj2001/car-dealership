@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "license": "MIT",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "lint": "oxlint"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.9.3"
+  },
+  "devDependencies": {
+    "morgan": "^1.11.0"
+  }
+}
