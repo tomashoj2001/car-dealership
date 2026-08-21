@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
+import type { Car } from '../types/car'
 
-export default function CarCard({ car }) {
+export default function CarCard({ car }: { car: Car }) {
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
       <img src={car.imageUrl} alt={`${car.make} ${car.model}`} className="h-48 w-full object-cover" />

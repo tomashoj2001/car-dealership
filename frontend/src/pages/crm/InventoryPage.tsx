@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
 import { getCars } from '../../api/cars'
+import type { Car } from '../../types/car'
 
 const emptyForm = { make: '', model: '', year: '', price: '', mileage: '' }
 
 export default function InventoryPage() {
-  const [cars, setCars] = useState([])
+  const [cars, setCars] = useState<Car[]>([])
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState(emptyForm)
-  const [editingId, setEditingId] = useState(null)
+  const [editingId, setEditingId] = useState<number | null>(null)
 
   useEffect(() => {
     getCars().then(({ data }) => {
@@ -16,12 +18,12 @@ export default function InventoryPage() {
     })
   }, [])
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name as keyof typeof form]: e.target.value })
   }
 
   // Local state only — nothing is persisted back to the mock data source or a backend.
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const parsedForm = { ...form, year: Number(form.year), price: Number(form.price), mileage: Number(form.mileage) }
 
@@ -35,9 +37,15 @@ export default function InventoryPage() {
     setEditingId(null)
   }
 
-  const handleEdit = (car) => {
+  const handleEdit = (car: Car) => {
     setEditingId(car.id)
-    setForm({ make: car.make, model: car.model, year: car.year, price: car.price, mileage: car.mileage })
+    setForm({
+      make: car.make,
+      model: car.model,
+      year: String(car.year),
+      price: String(car.price),
+      mileage: String(car.mileage),
+    })
   }
 
   const handleCancel = () => {

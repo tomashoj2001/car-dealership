@@ -1,5 +1,7 @@
+import type { Car } from '../types/car'
+
 // Mock car inventory. Shape mirrors what a future REST endpoint (e.g. GET /cars) would return.
-export const mockCars = [
+export const mockCars: Car[] = [
   {
     id: 1,
     make: 'Toyota',

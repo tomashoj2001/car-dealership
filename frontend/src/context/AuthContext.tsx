@@ -1,24 +1,27 @@
 import { createContext, useContext, useState } from 'react'
+import type { ReactNode } from 'react'
 import { login as loginRequest, logout as logoutRequest } from '../api/auth'
+import type { AuthContextValue, AuthUser } from '../types/auth'
 
 const AUTH_STORAGE_KEY = 'crm_token'
 
-const AuthContext = createContext(null)
+const AuthContext = createContext<AuthContextValue | null>(null)
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState(() => localStorage.getItem(AUTH_STORAGE_KEY))
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<AuthUser | null>(null)
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string) => {
     const { data, error } = await loginRequest(email, password)
 
     if (error) {
       return { error }
     }
 
-    localStorage.setItem(AUTH_STORAGE_KEY, data.token)
-    setToken(data.token)
-    setUser(data.user)
+    // error is null here, so the API contract guarantees data is present.
+    localStorage.setItem(AUTH_STORAGE_KEY, data!.token)
+    setToken(data!.token)
+    setUser(data!.user)
     return { error: null }
   }
 

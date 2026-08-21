@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getCarById } from '../../api/cars'
+import type { Car } from '../../types/car'
 
 export default function CarDetailPage() {
-  const { id } = useParams()
-  const [car, setCar] = useState(null)
-  const [error, setError] = useState(null)
+  const { id } = useParams<{ id: string }>()
+  const [car, setCar] = useState<Car | null>(null)
+  const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     setLoading(true)
-    getCarById(id).then(({ data, error }) => {
+    getCarById(id!).then(({ data, error }) => {
       setCar(data)
       setError(error)
       setLoading(false)

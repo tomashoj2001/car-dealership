@@ -1,5 +1,13 @@
+interface Lead {
+  id: number
+  name: string
+  email: string
+  interestedCar: string
+  date: string
+}
+
 // Static mock leads — there is no leads API yet, this list lives only in this page.
-const leads = [
+const leads: Lead[] = [
   { id: 1, name: 'Maria Gomez', email: 'maria.gomez@example.com', interestedCar: 'Toyota Corolla', date: '2026-08-12' },
   { id: 2, name: 'John Smith', email: 'john.smith@example.com', interestedCar: 'Ford F-150', date: '2026-08-14' },
   { id: 3, name: 'Aiko Tanaka', email: 'aiko.tanaka@example.com', interestedCar: 'BMW 3 Series', date: '2026-08-16' },

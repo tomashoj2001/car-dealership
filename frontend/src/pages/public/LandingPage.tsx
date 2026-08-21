@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { getCars } from '../../api/cars'
 import CarCard from '../../components/CarCard'
+import type { Car } from '../../types/car'
 
 export default function LandingPage() {
-  const [cars, setCars] = useState([])
+  const [cars, setCars] = useState<Car[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
