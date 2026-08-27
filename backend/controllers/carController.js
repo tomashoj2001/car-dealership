@@ -93,7 +93,7 @@ export const deleteCar = async (req, res) => {
 
     if (!car) throw Error('No car was found with this ID');
 
-    res.status(201).json({
+    res.status(204).json({
       status: 'success',
       data: null,
     });
